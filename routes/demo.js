@@ -6,3 +6,5 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+// TODO: Add e2e test for this route and evaluate the headers in response.
