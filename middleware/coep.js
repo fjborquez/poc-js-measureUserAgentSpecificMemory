@@ -1,14 +1,14 @@
-var coep = require('../lib/coep');
+const setHttpPolicyHeader = require('../lib/Middleware/setHttpPolicyHeader');
 
-function createHeader(options) {
-    const header = {};
-    header[coep.getHeaderName()] = coep.getDirectiveOrDefault(options.directive);
-    return header;
-}
+module.exports = (req, res, next) => {
+    let options = {
+        policy: 'coep',
+        directive: 'require-corp'
+    };
+    
 
-module.exports = function setCoepHeaders(req, res, next) {
-    res.set(createHeader({}));
-    next();
-}
+    return setHttpPolicyHeader(options, req, res, next);
+};
 
 // TODO: add a test for this middleware
+// TODO: recieve a policy and directive from the user

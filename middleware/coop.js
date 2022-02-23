@@ -1,9 +1,13 @@
-module.exports = function setCoopHeaders(req, res, next) {
-    res.set({
-        'Cross-Origin-Opener-Policy': 'same-origin',
-    });
-    next();
-}
+const setHttpPolicyHeader = require('../lib/Middleware/setHttpPolicyHeader');
+
+module.exports = (req, res, next) => {
+    let options = {
+        policy: 'coop',
+        directive: 'same-origin'
+    };
+
+    return setHttpPolicyHeader(options, req, res, next);
+};
 
 // TODO: add a test for this middleware
-// TODO: allow to change the value of the header
+// TODO: delete this file
