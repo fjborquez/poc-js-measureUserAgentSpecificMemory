@@ -5,7 +5,6 @@ module.exports = (req, res, next) => {
         policy: 'coep',
         directive: 'require-corp'
     };
-    
 
     return setHttpPolicyHeader(options, req, res, next);
 };
