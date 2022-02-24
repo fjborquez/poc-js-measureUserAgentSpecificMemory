@@ -7,8 +7,17 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demoRouter = require('./routes/demo');
-var coopMiddleware = require('./middleware/coop');
-var coepMiddleware = require('./middleware/coep');
+var setHttpPolicyHeader = require('./lib/Middleware/setHttpPolicyHeader');
+
+var coepOptions = {
+  policy: 'coep',
+  directive: 'require-corp'
+};
+
+var coopOptions = {
+  policy: 'coop',
+  directive: 'same-origin'
+};
 
 var app = express();
 
@@ -21,8 +30,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(coopMiddleware);
-app.use(coepMiddleware);
+app.use(setHttpPolicyHeader(coepOptions));
+app.use(setHttpPolicyHeader(coopOptions));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
